@@ -88,7 +88,7 @@ export class ShareComponent implements OnInit {
     if(value.value.length === 0){
       this.temp = this.employeeList
     }
-    this.temp = this.employeeList.filter(ele => ele.department.toLowerCase().startsWith(value.value))
+    this.temp = this.employeeList.filter(ele => ele.department.toLocaleLowerCase().startsWith(value.value.toLocaleLowerCase()))
   }
 
   selectAll(){
