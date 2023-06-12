@@ -1,0 +1,54 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Good</th>
+        <th scope="col">Above average</th>
+        <th scope="col">average</th>
+        <th scope="col">Below average</th>
+        <th scope="col">Poor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Ownership</th>
+        <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault"></td>
+    </tr>
+
+      <tr>
+        <th scope="row">Quality</th>
+        <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault1"></td>
+    </tr>
+      
+      <tr>
+        <th scope="row">Team coordinator</th>
+        <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault2"></td>
+      </tr> 
+
+      <tr>
+        <th scope="row">Attitude</th>
+        <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault3"></td>
+      </tr> 
+
+      <tr>
+        <th scope="row">Communication</th>
+        <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault4"></td>
+      </tr>
+
+      <tr>
+        <th scope="row">Technical Knowledge</th>
+        <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault5"></td>
+      </tr>
+
+      <tr>
+        <th scope="row">Timely Delivery</th>
+        <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault6"></td>
+      </tr>
+
+      <tr>
+        <th scope="row">Jira and Scrum process</th>
+        <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault7"></td>
+      </tr>
+
+    </tbody>
+  </table>
