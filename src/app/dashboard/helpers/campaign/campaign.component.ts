@@ -75,9 +75,10 @@ export class CampaignComponent implements OnInit {
    this.temp.map(ele =>{
       if(ele.name === val.name){
         ele.isCampaignStarted = true
+        this.router.navigateByUrl(`dashboard/campaign/share/${ele.id}`)
       }
     })
-    this.router.navigateByUrl('dashboard/campaign/share')
+    
   }
 
   stopCampaign(val:any){

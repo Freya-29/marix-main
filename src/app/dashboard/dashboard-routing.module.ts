@@ -15,7 +15,7 @@ const routes: Routes = [
       {path:'view',component:ViewComponent},
       {path:'campaign', children:[
         {path:"",component:CampaignComponent},
-        {path:"share",component:ShareComponent}
+        {path:"share/:id",component:ShareComponent}
       ]},
       {path:'track',component:TrackComponent},
       {path:'setting',component:SettingComponent},

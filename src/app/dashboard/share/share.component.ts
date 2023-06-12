@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-share',
@@ -7,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShareComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route : ActivatedRoute) { }
 
   ngOnInit() {
   }
 
   everyOneSelected = false
-
+  url = "";
   formVisible = false
   
   employeeList = [
@@ -21,43 +22,50 @@ export class ShareComponent implements OnInit {
       id:1,
       name:"akshat",
       department:"Cloud",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:2,
       name:"Harsh",
       department:"Cloud",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:3,
       name:"Neel",
       department:"Hybrid",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:4,
       name:"freya",
       department:"Hybrid",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:5,
       name:"hetvi",
       department:"Hybrid",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:6,
       name:"Hardik",
       department:"Android",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:7,
       name:"Anushka",
       department:"IOS",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     }
   ]
 
@@ -65,6 +73,13 @@ export class ShareComponent implements OnInit {
 
   generateLink(){
     this.formVisible = true
+    console.log("Link generated");
+    let id  = this.route.snapshot.params['id']
+    
+    this.url = `http://localhost:4200/form/${id}`
+    console.log(this.url);
+    
+    
   }
 
   cancel(){
@@ -72,15 +87,16 @@ export class ShareComponent implements OnInit {
   }
 
   share(){
-    let final:any[] = []
+    let recepients :any[] = []
 
     this.temp.map(ele =>{
       if(ele.selected){
-        final.push(ele)
+        recepients.push(ele.email)
       }
     })
+    
 
-    console.log(final)
+    console.log(recepients)
   }
 
   onSearch(value:any){
@@ -114,8 +130,4 @@ export class ShareComponent implements OnInit {
     })
     console.log(this.temp)
   }
-
-
-
-
 }
