@@ -1,4 +1,6 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { BehaviorSubject, Observable } from "rxjs";
 import { User } from "src/app/model/user.model";
@@ -9,16 +11,22 @@ export class AuthService {
 
     private userSubject!: BehaviorSubject<User>;
     public user!: Observable<User>;
-    constructor(){}
+    constructor(private http: HttpClient,private router: Router){}
 
-    public get userValue(){
-        return this.userSubject.value;
-    }
+    // public get userValue(){
+    //     return this.userSubject.value;
+    // }
 
     login(username:string, password:string){
-        if(username === 'admin' && password === 'admin@123'){
-            console.log("login suceessfully.");
+        this.http.post('http://localhost:3000/api/login', {username: username, password: password}).toPromise().then((data) => {
+            console.log(data);
+            this.router.navigate(['./dashboard']);
             
-        }
+        }).catch(Error => {
+            
+         console.log(Error)
+        
+        })
+           
     }
 }
