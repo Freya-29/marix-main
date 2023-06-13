@@ -44,37 +44,39 @@ export class UserLoginComponent implements OnInit {
 
   onSubmit(){
     this.submitted = true;
+    this.authService.login(this.f['username'].value, this.f['password'].value);
+    this.form.reset();
     
     // this.alertService.clear()
 
-    if (this.form.invalid){
-      return;
-    }
+    // if (this.form.invalid){
+    //   return;
+    // }
 
-    this.loading = true;
+    // this.loading = true;
  
-    let returnValue = this.checkUser(this.f['username'].value,this.f['password'].value)
-    if (returnValue === 'Admin'){
-      console.log('admin')
-    }
-    if (returnValue === 'user'){
-      console.log('user')
-    }
+    // let returnValue = this.checkUser(this.f['username'].value,this.f['password'].value)
+    // if (returnValue === 'Admin'){
+    //   console.log('admin')
+    // }
+    // if (returnValue === 'user'){
+    //   console.log('user')
+    // }
 
-    this.router.navigate(['./dashboard']);
-    this.authService.login(this.f['username'].value, this.f['password'].value)
+    // this.router.navigate(['./dashboard']);
+    // this.authService.login(this.f['username'].value, this.f['password'].value)
 
 
   }
 
-  checkUser(username:string , password:string){
-    let returnValue = ''
-    this.data.map(ele=>{
-      if(ele.username === username && ele.password  === password){
-        returnValue = ele.role
-      }
-    })
-    return returnValue
-  }
+  // checkUser(username:string , password:string){
+  //   let returnValue = ''
+  //   this.data.map(ele=>{
+  //     if(ele.username === username && ele.password  === password){
+  //       returnValue = ele.role
+  //     }
+  //   })
+  //   return returnValue
+  // }
 
 }
