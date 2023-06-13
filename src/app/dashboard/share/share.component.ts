@@ -38,7 +38,7 @@ export class ShareComponent implements OnInit {
       name:"Neel",
       department:"Hybrid",
       selected:false,
-      email : "neel.heet.1234@gmail.com"
+      email : "akshatsheth2001@gmail.com"
     },
     {
       id:4,
@@ -97,8 +97,7 @@ export class ShareComponent implements OnInit {
  
     let subject  = "For Checking email";
     let body =  this.generateLink();
-    this.emailService.sendEmail(recepients , subject , body).subscribe(
-    );
+    this.emailService.sendEmail(recepients , subject , body)
     console.log(recepients)
   }
 
