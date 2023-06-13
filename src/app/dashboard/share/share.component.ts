@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { EmailServiceService } from 'src/app/service/email-service.service';
 
 @Component({
   selector: 'app-share',
@@ -8,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute) { }
+  constructor(private route : ActivatedRoute , private emailService : EmailServiceService) { }
 
   ngOnInit() {
   }
@@ -37,7 +38,7 @@ export class ShareComponent implements OnInit {
       name:"Neel",
       department:"Hybrid",
       selected:false,
-      email : "neel.butani@pmcretail.com"
+      email : "neel.heet.1234@gmail.com"
     },
     {
       id:4,
@@ -75,11 +76,9 @@ export class ShareComponent implements OnInit {
     this.formVisible = true
     console.log("Link generated");
     let id  = this.route.snapshot.params['id']
-    
     this.url = `http://localhost:4200/form/${id}`
     console.log(this.url);
-    
-    
+    return this.url
   }
 
   cancel(){
@@ -88,14 +87,18 @@ export class ShareComponent implements OnInit {
 
   share(){
     let recepients :any[] = []
-
+  
+    // Getting email of recepients
     this.temp.map(ele =>{
       if(ele.selected){
         recepients.push(ele.email)
       }
     })
-    
-
+ 
+    let subject  = "For Checking email";
+    let body =  this.generateLink();
+    this.emailService.sendEmail(recepients , subject , body).subscribe(
+    );
     console.log(recepients)
   }
 
