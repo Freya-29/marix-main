@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-share',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShareComponent implements OnInit {
   employeeList1: any = [{id: '', name: '', department:''}]
-  constructor(private http: HttpClient) { }
+  constructor(private route : ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
     console.log(this.employeeList1);
@@ -16,7 +17,7 @@ export class ShareComponent implements OnInit {
   }
 
   everyOneSelected = false
-
+  url = "";
   formVisible = false
   
   employeeList = [
@@ -24,43 +25,50 @@ export class ShareComponent implements OnInit {
       id:1,
       name:"akshat",
       department:"Cloud",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:2,
       name:"Harsh",
       department:"Cloud",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:3,
       name:"Neel",
       department:"Hybrid",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:4,
       name:"freya",
       department:"Hybrid",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:5,
       name:"hetvi",
       department:"Hybrid",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:6,
       name:"Hardik",
       department:"Android",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     },
     {
       id:7,
       name:"Anushka",
       department:"IOS",
-      selected:false
+      selected:false,
+      email : "neel.butani@pmcretail.com"
     }
   ]
   // employeeList = [];
@@ -86,6 +94,13 @@ export class ShareComponent implements OnInit {
     }
     console.log(this.employeeList1);
     this.temp = this.employeeList1.map((ele: any) => ele)
+    console.log("Link generated");
+    let id  = this.route.snapshot.params['id']
+    
+    this.url = `http://localhost:4200/form/${id}`
+    console.log(this.url);
+    
+    
   }
 
   cancel(){
@@ -93,16 +108,17 @@ export class ShareComponent implements OnInit {
   }
 
   share(){
-    let final:any[] = []
+    let recepients :any[] = []
 
     this.temp.map((ele: any) =>{
       if(ele.selected){
         delete ele.selected
-        final.push(ele)
+        recepients.push(ele)
       }
     })
+    
 
-    console.log(final)
+    console.log(recepients)
 
 
 
@@ -113,7 +129,7 @@ export class ShareComponent implements OnInit {
     if(value.value.length === 0){
       this.temp = this.employeeList1
     }
-    this.temp = this.employeeList1.filter((ele: any) => ele.department.toLowerCase().startsWith(value.value))
+    this.temp = this.employeeList1.filter((ele: any) => ele.department.toLocaleLowerCase().startsWith(value.value.toLocaleLowerCase()))
   }
 
   selectedItems: boolean[] = [];
@@ -161,8 +177,4 @@ export class ShareComponent implements OnInit {
     // })
     // console.log(this.temp)
   }
-
-
-
-
 }

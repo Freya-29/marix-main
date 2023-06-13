@@ -8,6 +8,7 @@ import { ShareComponent } from './share/share.component';
 import { TrackComponent } from './track/track.component';
 import { SettingComponent } from './setting/setting.component';
 import { HomeComponent } from './home/home.component';
+import { CampaignComponent } from './helpers/campaign/campaign.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HomeComponent } from './home/home.component';
     ShareComponent,
     TrackComponent,
     SettingComponent,
-    HomeComponent
+    HomeComponent,
+    CampaignComponent
   ],
   imports: [
     CommonModule,
