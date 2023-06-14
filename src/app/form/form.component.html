@@ -1,4 +1,4 @@
-<table class="table">
+<!-- <table class="table">
     <thead>
       <tr>
         <th scope="col"></th>
@@ -13,12 +13,12 @@
       <tr>
         <th scope="row">Ownership</th>
         <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault"></td>
-    </tr>
+      </tr>
 
       <tr>
         <th scope="row">Quality</th>
         <td class="center" *ngFor='let columns of columns'><input class="form-check-input" type="radio" name="flexRadioDefault1"></td>
-    </tr>
+      </tr>
       
       <tr>
         <th scope="row">Team coordinator</th>
@@ -51,4 +51,44 @@
       </tr>
 
     </tbody>
-  </table>
+  </table> -->
+
+
+<!-- dynamic table -->
+<table class="table" >
+  <thead>
+    <tr>
+      <th></th>
+      <th>Good</th>
+      <th>Above average</th>
+      <th>average</th>
+      <th>Below average</th>
+      <th>Poor</th>
+    <tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let item of tableQuestions; index as i" >
+      <tr>
+        <th>{{item}}</th>
+        <td><input (click)="select(item,'Good')" class="form-check-input" type="radio" [attr.name]="i"></td>  
+        <td><input (click)="select(item,'Above average')" class="form-check-input" type="radio" [attr.name]="i"></td>  
+        <td><input (click)="select(item,'average')" class="form-check-input" type="radio" [attr.name]="i"></td>  
+        <td><input (click)="select(item,'Below average')" class="form-check-input" type="radio" [attr.name]="i"></td>  
+        <td><input (click)="select(item,'Poor')" class="form-check-input" type="radio" [attr.name]="i"></td>    
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<div>
+  <button class="btn btn-primary"  (click)="add_field()" >ADD FIELD</button>
+  <button class="btn btn-success" [disabled]="submitButtonDisabled"  (click)="submit()" >SUBMIT</button>
+</div>
+<div class="row mt-5" [hidden]="!addFieldVisible">
+  <div class="col-3">
+    <input  #newFieldValue  type="text" class="form-control" placeholder="field Value" aria-label="Field Value">
+  </div>
+  <div>
+    <button  (click)="cancelAddField()"  >Cancel</button>
+    <button (click)="saveAddField(newFieldValue)" >Save</button>
+  </div>
+</div>
