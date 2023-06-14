@@ -83,7 +83,7 @@ export class ShareComponent implements OnInit {
       this.response = await this.http.get('http://10.62.0.60:3000/api/employees').toPromise();
       const data = this.response;
       console.log("Heyeyyy" ,data);
-      this.employeeList1 = data.Items;
+      this.employeeList1 = data;
       this.employeeList1.forEach((element: any) => {
         element['selected'] = false;
       });
