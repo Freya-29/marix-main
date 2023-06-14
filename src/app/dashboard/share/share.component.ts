@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { EmailServiceService } from 'src/app/service/email-service.service';
 
 @Component({
   selector: 'app-share',
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ShareComponent implements OnInit {
   employeeList1: any = [{id: '', name: '', department:''}]
-  constructor(private route : ActivatedRoute, private http: HttpClient) { }
+  constructor(private route : ActivatedRoute, private http: HttpClient, private emailService : EmailServiceService) { }
 
   ngOnInit() {
     console.log(this.employeeList1);
@@ -41,7 +42,7 @@ export class ShareComponent implements OnInit {
       name:"Neel",
       department:"Hybrid",
       selected:false,
-      email : "neel.butani@pmcretail.com"
+      email : "akshatsheth2001@gmail.com"
     },
     {
       id:4,
@@ -81,8 +82,8 @@ export class ShareComponent implements OnInit {
       this.formVisible = true;
       this.response = await this.http.get('http://10.62.0.60:3000/api/employees').toPromise();
       const data = this.response;
-      console.log(data);
-      this.employeeList1 = data;
+      console.log("Heyeyyy" ,data);
+      this.employeeList1 = data.Items;
       this.employeeList1.forEach((element: any) => {
         element['selected'] = false;
       });
@@ -101,14 +102,13 @@ export class ShareComponent implements OnInit {
     this.url = `http://localhost:4200/form/${this.id}`
     console.log(this.url);
     
-    
   }
 
   cancel(){
     this.formVisible = false
   }
 
-  share(){
+  async share(){
     let recepients :any[] = []
 
     this.temp.map((ele: any) =>{
