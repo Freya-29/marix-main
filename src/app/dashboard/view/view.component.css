@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .dropdown {
+    position: relative;
+    flex: 1;
+    margin: 50px 10px;
+  }
+
+  .dropdown select {
+    padding: 8px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .dropdown select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+  }
+
+  .dropdown::before {
+    content: "\25BE";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 14px;
+  }
+
+  .button {
+    position: absolute;
+    bottom: 30px;
+    right: 80px;
+  }
+  @media screen and (max-width: 600px) {
+    .container {
+      flex-wrap: wrap;
+    }
+
+    .dropdown {
+      margin: 10px 0;
+    }
+    .button {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+      }
+  }
+
+  @media screen and (max-width: 400px) {
+    .dropdown select {
+      font-size: 14px;
+    }
+    .button {
+        position: absolute;
+        bottom: 30px;
+        right: 10px;
+      }
+  }

@@ -43,7 +43,7 @@
           <tbody>
             <ng-container *ngFor="let employee of temp; let i = index">
               <tr #temp>
-                <!-- <th scope="row">{{employee.id}}</th> -->
+                <th scope="row">{{i+1}}</th>
                 <td>{{employee.firstName}}</td>
                 <td>{{employee.department}}</td>
                 <td>

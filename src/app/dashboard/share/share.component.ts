@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EmailServiceService } from 'src/app/service/email-service.service';
@@ -19,7 +19,8 @@ export class ShareComponent implements OnInit {
 
   everyOneSelected = false
   url = "";
-  formVisible = false
+  formVisible = false;
+  id: any;
   
   employeeList = [
     {
@@ -82,7 +83,7 @@ export class ShareComponent implements OnInit {
       this.response = await this.http.get('http://10.62.0.60:3000/api/employees').toPromise();
       const data = this.response;
       console.log("Heyeyyy" ,data);
-      this.employeeList1 = data.Items;
+      this.employeeList1 = data;
       this.employeeList1.forEach((element: any) => {
         element['selected'] = false;
       });
@@ -96,10 +97,11 @@ export class ShareComponent implements OnInit {
     console.log(this.employeeList1);
     this.temp = this.employeeList1.map((ele: any) => ele)
     console.log("Link generated");
-    let id  = this.route.snapshot.params['id']
-    this.url = `http://localhost:4200/form/${id}`
+    this.id  = this.route.snapshot.params['id']
+    
+    this.url = `http://localhost:4200/form/${this.id}`
     console.log(this.url);
-    return this.url
+    
   }
 
   cancel(){
@@ -112,14 +114,33 @@ export class ShareComponent implements OnInit {
     this.temp.map((ele: any) =>{
       if(ele.selected){
         delete ele.selected
-        recepients.push(ele.email)
+        recepients.push(ele.id)
       }
     })
- 
-    let subject  = "For Checking email";
-    let body = await  this.generateLink();
-    this.emailService.sendEmail(recepients , subject , body)
-    console.log("RRRRRRRRRRR" , recepients)
+    
+
+    console.log(recepients)
+    const data = {
+      'startedBy': 'USER:b0b64e7c-a36f-4813-839c-79a2a519d860',
+      // 'for': this.id 
+      'for': 'EMPLOYEE:: 2f17fa1f-1f1b-4384-970d-e11e0f623a3d',
+      'reviewers': recepients,
+      'active': true
+    }
+    const options = {
+      headers: { 'Content-Type': 'application/json' },
+      responseType: 'json' as const,
+    };
+    
+    this.http.post('http://10.62.0.60:3000/api/campaigns', data, options).toPromise().then((ele : any) => {
+      console.log(ele);
+      this.http.get(`http://10.62.0.60:3000/api/campaigns/mail/${ele.id}`).toPromise().then((data:any) => {
+        console.log(data);
+        
+      }).catch(err => console.log(err));
+    }).catch(err => console.log(err)
+    );
+
 
   }
 

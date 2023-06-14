@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Employee } from 'src/app/model/employee.model';
+import { EmployeeService } from 'src/app/service/employee.service';
 
 @Component({
   selector: 'app-campaign',
@@ -8,87 +10,100 @@ import { Router } from '@angular/router';
 })
 export class CampaignComponent implements OnInit {
 
-  constructor(private router:Router) { }
 
-  ngOnInit() {
-  }
-  
+  constructor(private router:Router, private employeeService: EmployeeService) { }
+
+  temp: any;
 
   onSearch(val:any){
     if(val.value.length === 0){
+
       this.temp = this.employeeList
+
     }else{
-      this.temp = this.temp.filter(ele => ele.name.toLocaleLowerCase().startsWith(val.value.toLocaleLowerCase()))
+
+      this.temp = this.temp.filter((ele : any) => ele.firstName.toLocaleLowerCase().startsWith(val.value.toLocaleLowerCase()))
+
     }
+
     console.log(val.value)
+
   }
 
-  employeeList = [
-    {
-      id:1,
-      name:"akshat",
-      department:"Cloud",
-      isCampaignStarted:true
-    },
-    {
-      id:2,
-      name:"Harsh",
-      department:"Cloud",
-      isCampaignStarted:false
-    },
-    {
-      id:3,
-      name:"Neel",
-      department:"Hybrid",
-      isCampaignStarted:false
-    },
-    {
-      id:4,
-      name:"freya",
-      department:"Hybrid",
-      isCampaignStarted:false
-    },
-    {
-      id:5,
-      name:"hetvi",
-      department:"Hybrid",
-      isCampaignStarted:false
-    },
-    {
-      id:6,
-      name:"Hardik",
-      department:"Android",
-      isCampaignStarted:false
-    },
-    {
-      id:7,
-      name:"Anushka",
-      department:"IOS",
-      isCampaignStarted:false
-    }
-  ]
 
-  temp = this.employeeList.map(ele => ele)
+
+
+  employeeList: Employee[] = [] ;
+
+
+
+
+  ngOnInit() {
+
+    this.employeeService.getemployees().toPromise().then((employee:any) => {
+
+      this.employeeList = employee;
+
+      console.log(employee);
+
+      this.employeeList.forEach((element: any) => {
+
+        element['isCampaignStarted'] = false;
+
+      });
+
+      this.temp= this.employeeList.map((ele: any) => ele)
+
+     
+
+    }).catch()
+
+    console.log(this.employeeList);
+    console.log(this.temp);
+
+  }
+
+ 
 
   startCampaign(val:any){
-    // we will also have to make a api call to get all the employees again
-   this.temp.map(ele =>{
-      if(ele.name === val.name){
+
+   this.temp.map((ele : any) =>{
+
+      if(ele.firstName == val.firstName){
+
         ele.isCampaignStarted = true
+
         this.router.navigateByUrl(`dashboard/campaign/share/${ele.id}`)
+
       }
+
     })
-    
+
+    console.log(val);
+
+   
+
   }
 
+
+
+
   stopCampaign(val:any){
-     // we will also have to make a api call to get all the employees again
-    this.temp.map(ele =>{
-      if(ele.name === val.name){
+
+    this.temp.map((ele : any) =>{
+
+      if(ele.firstName === val.name){
+
         ele.isCampaignStarted = false
+
       }
+
     })
+
   }
+
+
+
 
 
 }
