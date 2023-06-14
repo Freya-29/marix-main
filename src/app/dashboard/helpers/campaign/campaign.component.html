@@ -24,10 +24,10 @@
         </tr>
       </thead>
       <tbody>
-    <ng-container *ngFor="let employee of temp " >
+    <ng-container *ngFor="let employee of temp; let i = index" >
       <tr #temp>
-        <th scope="row">{{employee.id}}</th>
-        <td>{{employee.name}}</td>
+        <th scope="row">{{i+1}}</th>
+        <td>{{employee.firstName}}</td>
         <td>{{employee.department}}</td>
         <td>
           <button (click)="startCampaign(employee)" *ngIf="!employee.isCampaignStarted" type="button" class="btn btn-success">Start Campaign</button>
