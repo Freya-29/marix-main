@@ -18,8 +18,8 @@ export class AuthService {
     // }
 
     login(username:string, password:string){
-        this.http.post('http://10.62.0.60:3000/api/login', {username: username, password: password}).toPromise().then((data) => {
-            console.log(data);
+        this.http.post('http://10.62.0.60:3000/api/login', {username: username, password: password}).toPromise().then((data: any) => {
+            console.log(data.user.id);
             this.router.navigate(['./dashboard']);
             
         }).catch(Error => {
