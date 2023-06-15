@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormRoutingModule,
     ReactiveFormsModule
   ],
+  exports:[ FormComponent ]
 })
 
 
