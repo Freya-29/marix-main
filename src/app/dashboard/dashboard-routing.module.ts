@@ -19,7 +19,8 @@ const routes: Routes = [
       ]},
       {path:'track',component:TrackComponent},
       {path:'setting',component:SettingComponent},
-      {path:'edit',component:EditComponent}
+      {path:'edit',component:EditComponent},
+      
     ]
 }
 ];
