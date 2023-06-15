@@ -9,6 +9,7 @@ import { TrackComponent } from './track/track.component';
 import { SettingComponent } from './setting/setting.component';
 import { HomeComponent } from './home/home.component';
 import { CampaignComponent } from './helpers/campaign/campaign.component';
+import { FormModule } from '../form/form.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { CampaignComponent } from './helpers/campaign/campaign.component';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    FormModule
   ]
 })
 export class DashboardModule { }

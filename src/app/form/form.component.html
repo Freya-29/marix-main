@@ -64,6 +64,7 @@
       <th>average</th>
       <th>Below average</th>
       <th>Poor</th>
+      <th  *ngIf="formEditable" >Action</th>
     <tr>
   </thead>
   <tbody>
@@ -74,16 +75,17 @@
         <td><input (click)="select(item,'Above average')" class="form-check-input" type="radio" [attr.name]="i"></td>  
         <td><input (click)="select(item,'average')" class="form-check-input" type="radio" [attr.name]="i"></td>  
         <td><input (click)="select(item,'Below average')" class="form-check-input" type="radio" [attr.name]="i"></td>  
-        <td><input (click)="select(item,'Poor')" class="form-check-input" type="radio" [attr.name]="i"></td>    
+        <td><input (click)="select(item,'Poor')" class="form-check-input" type="radio" [attr.name]="i"></td>  
+        <td  *ngIf="formEditable" ><button class="btn btn-danger" (click)="removeField(item)" >Remove</button></td>  
       </tr>
     </ng-container>
   </tbody>
 </table>
 <div>
-  <button class="btn btn-primary"  (click)="add_field()" >ADD FIELD</button>
+  <button  *ngIf="formEditable" class="btn btn-primary"  (click)="add_field()" >ADD FIELD</button>
   <button class="btn btn-success" [disabled]="submitButtonDisabled"  (click)="submit()" >SUBMIT</button>
 </div>
-<div class="row mt-5" [hidden]="!addFieldVisible">
+<div  *ngIf="formEditable" class="row mt-5" [hidden]="!addFieldVisible">
   <div class="col-3">
     <input  #newFieldValue  type="text" class="form-control" placeholder="field Value" aria-label="Field Value">
   </div>
