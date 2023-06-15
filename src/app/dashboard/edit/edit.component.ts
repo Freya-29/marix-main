@@ -11,5 +11,6 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
   }
+  edit= true
 
 }

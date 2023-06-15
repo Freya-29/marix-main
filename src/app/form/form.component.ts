@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-form',
@@ -14,6 +14,7 @@ export class FormComponent implements OnInit {
   response :any[]= [];
   submitButtonDisabled = true
   addFieldVisible = false
+  @Input() formEditable:any;
   constructor() { }
 
   ngOnInit() {
@@ -24,6 +25,7 @@ export class FormComponent implements OnInit {
       }
       this.response.push(newObject)
     })
+    console.log(this.formEditable)
   }
 
   select(question:any,answer:any) {
@@ -69,6 +71,22 @@ export class FormComponent implements OnInit {
     }
     this.response.push(newObj)
     this.addFieldVisible = false
+  }
+
+  removeField(val:any){
+
+    this.tableQuestions = this.tableQuestions.filter(ele => {
+      if(ele !== val){
+        return ele
+      }
+    })
+
+    this.response = this.response.filter(ele =>{
+      if(ele.question != val){
+        return ele
+      }
+    })
+
   }
 
   }
