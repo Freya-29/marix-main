@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -14,22 +16,24 @@ export class FormComponent implements OnInit {
   response :any[]= [];
   submitButtonDisabled = true
   addFieldVisible = false
-  constructor() { }
+  @Input() formEditable:any;
+  constructor(private http : HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.tableQuestions.map(ele =>{
       let newObject = {
-        question:ele,
-        answer:""
+        category:ele,
+        rating:""
       }
       this.response.push(newObject)
     })
+    console.log(this.formEditable)
   }
 
-  select(question:any,answer:any) {
+  select(category:any,rating:any) {
     this.response.map(ele =>{
-      if(ele.question == question){
-        ele.answer = answer
+      if(ele.category == category){
+        ele.rating = rating
       }
     })
     this.check()
@@ -38,8 +42,8 @@ export class FormComponent implements OnInit {
   check(){
     let temp: any[] = [];
     this.response.map(ele => {
-      if(ele.answer.length == 0){
-        temp.push(ele.question)
+      if(ele.rating.length == 0){
+        temp.push(ele.category)
       }
     })
     if(temp.length === 0){
@@ -54,6 +58,19 @@ export class FormComponent implements OnInit {
   }
 
   submit(){
+    const data = {
+      'campaignId': this.route.snapshot.params['cid'],
+      'for': this.route.snapshot.params['fid'],
+      'reviewer': this.route.snapshot.params['rid'],
+      'review': this.response
+    }
+    this.http.post('http://localhost:3000/api/feedbacks', data).toPromise().then((data:any) => {
+      console.log(data);
+      
+    }).catch((err) => {
+      console.log(err);
+      
+    });
     console.log(this.response)
   }
 
@@ -64,11 +81,27 @@ export class FormComponent implements OnInit {
   saveAddField(val:any){
     this.tableQuestions.push(val.value)
     let newObj = {
-      question:val.value,
-      answer:""
+      category:val.value,
+      rating:""
     }
     this.response.push(newObj)
     this.addFieldVisible = false
+  }
+
+  removeField(val:any){
+
+    this.tableQuestions = this.tableQuestions.filter(ele => {
+      if(ele !== val){
+        return ele
+      }
+    })
+
+    this.response = this.response.filter(ele =>{
+      if(ele.question != val){
+        return ele
+      }
+    })
+
   }
 
   }
