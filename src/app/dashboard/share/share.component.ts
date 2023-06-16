@@ -2,6 +2,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EmailServiceService } from 'src/app/service/email-service.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-share',
@@ -10,7 +13,11 @@ import { EmailServiceService } from 'src/app/service/email-service.service';
 })
 export class ShareComponent implements OnInit {
   employeeList1: any = [{id: '', name: '', department:''}]
-  constructor(private route : ActivatedRoute, private http: HttpClient, private emailService : EmailServiceService) { }
+  constructor(private route : ActivatedRoute, 
+              private http: HttpClient, 
+              private emailService : EmailServiceService, 
+              private router:Router,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     console.log(this.employeeList1);
@@ -114,7 +121,10 @@ export class ShareComponent implements OnInit {
     this.temp.map((ele: any) =>{
       if(ele.selected){
         delete ele.selected
-        recepients.push(ele.id)
+        recepients.push({
+          id : ele.id,
+          issubmitted: false
+        })
       }
     })
     
@@ -138,12 +148,17 @@ export class ShareComponent implements OnInit {
       params = params.append('forId', this.id);
       this.http.get(`http://10.62.0.60:3000/api/campaigns/mail/${ele.id}`, { params: params }).toPromise().then((data:any) => {
         console.log(data);
+
+        this.showSuccess();
+        this.router.navigate(['../dashboard/campaign'])
         
       }).catch(err => console.log(err));
     }).catch(err => console.log(err)
     );
+  }
 
-
+  showSuccess() {
+    this.toastr.success('The mail has sent to reviewers', 'Success');
   }
 
   onSearch(value:any){
