@@ -142,11 +142,11 @@ export class ShareComponent implements OnInit {
       responseType: 'json' as const,
     };
     
-    this.http.post('http://localhost:3000/api/campaigns', data, options).toPromise().then((ele : any) => {
+    this.http.post('http://10.62.0.60:3000/api/campaigns', data, options).toPromise().then((ele : any) => {
       console.log(ele.id);
       let params = new HttpParams();
       params = params.append('forId', this.id);
-      this.http.get(`http://localhost:3000/api/campaigns/mail/${ele.id}`, { params: params }).toPromise().then((data:any) => {
+      this.http.get(`http://10.62.0.60:3000/api/campaigns/mail/${ele.id}`, { params: params }).toPromise().then((data:any) => {
         console.log(data);
 
         this.showSuccess();
