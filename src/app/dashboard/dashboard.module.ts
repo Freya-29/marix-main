@@ -10,6 +10,7 @@ import { SettingComponent } from './setting/setting.component';
 import { HomeComponent } from './home/home.component';
 import { CampaignComponent } from './helpers/campaign/campaign.component';
 import { FormModule } from '../form/form.module';
+import { ReportComponent } from './view/report/report.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FormModule } from '../form/form.module';
     TrackComponent,
     SettingComponent,
     HomeComponent,
-    CampaignComponent
+    CampaignComponent,
+    ReportComponent
   ],
   imports: [
     CommonModule,

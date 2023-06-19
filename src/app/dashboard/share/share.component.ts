@@ -121,9 +121,9 @@ export class ShareComponent implements OnInit {
 
     console.log(recepients)
     const data = {
-      'startedBy': 'USER:b0b64e7c-a36f-4813-839c-79a2a519d860',
+      'startedBy': localStorage.getItem('userId'),
       // 'for': this.id 
-      'for': 'EMPLOYEE:: 2f17fa1f-1f1b-4384-970d-e11e0f623a3d',
+      'for': this.id,
       'reviewers': recepients,
       'active': true
     }

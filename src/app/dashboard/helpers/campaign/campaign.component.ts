@@ -15,24 +15,6 @@ export class CampaignComponent implements OnInit {
 
   temp: any;
 
-  onSearch(val:any){
-    if(val.value.length === 0){
-
-      this.temp = this.employeeList
-
-    }else{
-
-      this.temp = this.temp.filter((ele : any) => ele.firstName.toLocaleLowerCase().startsWith(val.value.toLocaleLowerCase()))
-
-    }
-
-    console.log(val.value)
-
-  }
-
-
-
-
   employeeList: Employee[] = [] ;
 
 
@@ -100,6 +82,14 @@ export class CampaignComponent implements OnInit {
 
     })
 
+  }
+
+  onSearch1(value:any){
+    console.log(value.value)
+    if(value.value.length === 0){
+      this.temp = this.employeeList
+    }
+    this.temp = this.employeeList.filter((ele: any) => ele.department.toLocaleLowerCase().startsWith(value.value.toLocaleLowerCase()))
   }
 
 

@@ -7,12 +7,14 @@ import { ShareComponent } from './share/share.component';
 import { TrackComponent } from './track/track.component';
 import { ViewComponent } from './view/view.component';
 import { CampaignComponent } from './helpers/campaign/campaign.component';
+import { ReportComponent } from './view/report/report.component';
 
 const routes: Routes = [
   {
     path:'',component:HomeComponent,
     children:[
       {path:'view',component:ViewComponent},
+      {path:'view/report', component: ReportComponent},
       {path:'campaign', children:[
         {path:"",component:CampaignComponent},
         {path:"share/:id",component:ShareComponent}
