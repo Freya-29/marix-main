@@ -1,3 +1,3 @@
-<p>
-  track works!
-</p>
+<div class="gauge-chart" [attr.data-value]="averageScore" >
+  <div class="gauge-needle" [ngStyle]="{'transform': 'rotate(' + rotationAngle + ')'}" ></div>
+</div>
