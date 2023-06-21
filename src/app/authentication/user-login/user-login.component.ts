@@ -45,7 +45,7 @@ export class UserLoginComponent implements OnInit {
   onSubmit(){
     this.submitted = true;
     this.authService.login(this.f['username'].value, this.f['password'].value);
-    this.form.reset();
+    // this.form.reset();
     
     // this.alertService.clear()
 

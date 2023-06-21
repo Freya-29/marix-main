@@ -2,6 +2,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EmailServiceService } from 'src/app/service/email-service.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-share',
@@ -10,7 +13,11 @@ import { EmailServiceService } from 'src/app/service/email-service.service';
 })
 export class ShareComponent implements OnInit {
   employeeList1: any = [{id: '', name: '', department:''}]
-  constructor(private route : ActivatedRoute, private http: HttpClient, private emailService : EmailServiceService) { }
+  constructor(private route : ActivatedRoute, 
+              private http: HttpClient, 
+              private emailService : EmailServiceService, 
+              private router:Router,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     console.log(this.employeeList1);
@@ -114,16 +121,19 @@ export class ShareComponent implements OnInit {
     this.temp.map((ele: any) =>{
       if(ele.selected){
         delete ele.selected
-        recepients.push(ele.id)
+        recepients.push({
+          id : ele.id,
+          issubmitted: false
+        })
       }
     })
     
 
     console.log(recepients)
     const data = {
-      'startedBy': 'USER:b0b64e7c-a36f-4813-839c-79a2a519d860',
+      'startedBy': localStorage.getItem('userId'),
       // 'for': this.id 
-      'for': 'EMPLOYEE:: 2f17fa1f-1f1b-4384-970d-e11e0f623a3d',
+      'for': this.id,
       'reviewers': recepients,
       'active': true
     }
@@ -132,18 +142,23 @@ export class ShareComponent implements OnInit {
       responseType: 'json' as const,
     };
     
-    this.http.post('http://localhost:3000/api/campaigns', data, options).toPromise().then((ele : any) => {
+    this.http.post('http://10.62.0.60:3000/api/campaigns', data, options).toPromise().then((ele : any) => {
       console.log(ele.id);
       let params = new HttpParams();
       params = params.append('forId', this.id);
-      this.http.get(`http://localhost:3000/api/campaigns/mail/${ele.id}`, { params: params }).toPromise().then((data:any) => {
+      this.http.get(`http://10.62.0.60:3000/api/campaigns/mail/${ele.id}`, { params: params }).toPromise().then((data:any) => {
         console.log(data);
+
+        this.showSuccess();
+        this.router.navigate(['../dashboard/campaign'])
         
       }).catch(err => console.log(err));
     }).catch(err => console.log(err)
     );
+  }
 
-
+  showSuccess() {
+    this.toastr.success('The mail has sent to reviewers', 'Success');
   }
 
   onSearch(value:any){

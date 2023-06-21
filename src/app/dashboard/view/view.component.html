@@ -1,24 +1,30 @@
-<div class="container">
+<div class="container d-flex flex-column">
+
+<div class="d-flex flex-row" >
   <div class="dropdown">
-    <select>
+    <select #selectOption (change)="onOptionSelected(selectOption.value)">
       <option value="">Department</option>
-      <option *ngFor="let d of departmentData" value=`${departmentData.departmentName}`>{{ d.departmentName }}</option>
+      <option *ngFor="let d of departmentData" [value]='d.departmentName'>{{ d.departmentName }}</option>
       
     </select>
   </div>
 
   <div class="dropdown">
-    <select>
+    <select #selectOption1 (change)="onOptionSelected1(selectOption1.value)">
       <option value="">Month</option>
-      <option *ngFor="let m of monthData" value=`${m}`>{{ m }}</option>
+      <option *ngFor="let m of monthData" [value]='m'>{{ m }}</option>
     </select>
   </div>
 
   <div class="dropdown">
-    <select>
+    <select #selectOption2 (change)="onOptionSelected2(selectOption2.value)">
       <option value="">Year</option>
-      <option *ngFor="let y of yearData" value=`${m}`>{{ y }}</option>
+      <option *ngFor="let y of yearData" [value]='y'>{{ y }}</option>
     </select>
   </div>
+</div>
+
+<div class="d-flex flex-row-reverse align-right"> 
   <button class="button btn btn-primary btn-lg" (click)="submit()">Submit</button>
+</div>
 </div>
