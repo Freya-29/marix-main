@@ -21,7 +21,7 @@ export class ShareComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.employeeList1);
-    
+
   }
 
   everyOneSelected = false

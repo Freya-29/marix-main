@@ -64,11 +64,13 @@ export class FormComponent implements OnInit {
       'reviewer': this.route.snapshot.params['rid'],
       'review': this.response
     }
-    this.http.post('http://localhost:3000/api/feedbacks', data).toPromise().then((data:any) => {
+    console.log(data);
+    
+    this.http.post('http://10.62.0.60:3000/api/feedbacks', data).toPromise().then((data:any) => {
       console.log(data);
       
     }).catch((err) => {
-      console.log(err);
+      console.log(err);  
       
     });
     console.log(this.response)
@@ -104,4 +106,4 @@ export class FormComponent implements OnInit {
 
   }
 
-  }
+}

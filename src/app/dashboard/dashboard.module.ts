@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { CampaignComponent } from './helpers/campaign/campaign.component';
 import { FormModule } from '../form/form.module';
 import { ReportComponent } from './view/report/report.component';
+import { TrackCampaignComponent } from './helpers/track-campaign/track-campaign.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ReportComponent } from './view/report/report.component';
     SettingComponent,
     HomeComponent,
     CampaignComponent,
-    ReportComponent
+    ReportComponent,
+    TrackCampaignComponent
   ],
   imports: [
     CommonModule,

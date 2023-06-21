@@ -8,6 +8,7 @@ import { TrackComponent } from './track/track.component';
 import { ViewComponent } from './view/view.component';
 import { CampaignComponent } from './helpers/campaign/campaign.component';
 import { ReportComponent } from './view/report/report.component';
+import { TrackCampaignComponent } from './helpers/track-campaign/track-campaign.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,11 @@ const routes: Routes = [
         {path:"",component:CampaignComponent},
         {path:"share/:id",component:ShareComponent}
       ]},
-      {path:'track',component:TrackComponent},
+      {path:'track', children : [
+        { path : "" , component : TrackCampaignComponent } , 
+        { path : "campaign/:id" , component : TrackComponent }
+      ]      
+      },
       {path:'setting',component:SettingComponent},
       {path:'edit',component:EditComponent},
       
