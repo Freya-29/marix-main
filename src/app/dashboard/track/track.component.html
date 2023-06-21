@@ -1,6 +1,8 @@
-<!-- <div class="toast-container position-fixed top-10 end-0 p-3" >
-  Campaign Stopped
-</div> -->
+
+
+<div class="gauge-chart" [attr.data-value]="averageScore" >
+  <div class="gauge-needle" [ngStyle]="{'transform': 'rotate(' + rotationAngle + ')'}" ></div>
+</div>
 
 <div class="container d-flex flex-column">
   <div class="mt-5">
