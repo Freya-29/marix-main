@@ -22,7 +22,7 @@ export class CampaignComponent implements OnInit {
 
   ngOnInit() {
 
-    this.employeeService.getemployees().toPromise().then((employee:any) => {
+    this.employeeService.getemployees().then((employee:any) => {
 
       this.employeeList = employee;
 

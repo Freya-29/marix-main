@@ -12,7 +12,11 @@ export class EmployeeService {
 
 
   getemployees() {
-    return this.http.get('http://10.62.0.60:3000/api/employees');
+    return this.http.get('http://10.62.0.60:3000/api/employees').toPromise();
+  }
+
+  getEmployeeFromDeptId(id: any){
+    return this.http.get(`http://10.62.0.60:3000/api/employees/department/${id}`).toPromise();
   }
 
 

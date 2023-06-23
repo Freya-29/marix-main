@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { error } from 'highcharts';
+import { ViewreportService } from 'src/app/service/viewreport.service';
 
 @Component({
   selector: 'app-view',
@@ -15,37 +17,35 @@ export class ViewComponent implements OnInit {
   selectedDepartment: any;
   selectedMonth:any;
   selectedYear:any;
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(private http: HttpClient, private router:Router, private viewreportService: ViewreportService) { }
 
   ngOnInit() {
-    this.department();
+    this.getdepartment();
   }
 
-  async department(){
-   try{
-    this.http.get('http://10.62.0.60:3000/api/department').toPromise().then((data:any) => {
+  async getdepartment(){
+    this.viewreportService.getDepartment().then((data: any)=>{
       this.departmentData = data['Items']
       console.log(data);
+    }).catch((err: any) => {
+      console.log(err);
       
     })
-   } catch{
-
-   }
   }
 
-  onOptionSelected(selectedOption: string){
+  onDepartmentSelected(selectedOption: string){
     this.selectedDepartment = this.departmentData.filter((element: any) => {
       return element.departmentName === selectedOption
     });
     console.log(this.selectedDepartment);
     
   }
-  onOptionSelected1(selectedOption: string){
+  onMonthSelected(selectedOption: string){
     this.selectedMonth = selectedOption.slice(0, 3);
     console.log(this.selectedMonth);
     
   }
-  onOptionSelected2(selectedOption: string){
+  onYearSelected(selectedOption: string){
     this.selectedYear = selectedOption;
     console.log(this.selectedYear);
     

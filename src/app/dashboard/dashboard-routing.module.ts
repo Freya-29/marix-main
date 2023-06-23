@@ -8,6 +8,7 @@ import { TrackComponent } from './track/track.component';
 import { ViewComponent } from './view/view.component';
 import { CampaignComponent } from './helpers/campaign/campaign.component';
 import { ReportComponent } from './view/report/report.component';
+import { ChartComponent } from './view/chart/chart.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
     children:[
       {path:'view',component:ViewComponent},
       {path:'view/report', component: ReportComponent},
+      {path:'view/chart',component:ChartComponent},
       {path:'campaign', children:[
         {path:"",component:CampaignComponent},
         {path:"share/:id",component:ShareComponent}
