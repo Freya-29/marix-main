@@ -2,7 +2,7 @@
 
 <div class="d-flex flex-row" >
   <div class="dropdown">
-    <select #selectOption (change)="onOptionSelected(selectOption.value)">
+    <select #dept (change)="onDepartmentSelected(dept.value)">
       <option value="">Department</option>
       <option *ngFor="let d of departmentData" [value]='d.departmentName'>{{ d.departmentName }}</option>
       
@@ -10,14 +10,14 @@
   </div>
 
   <div class="dropdown">
-    <select #selectOption1 (change)="onOptionSelected1(selectOption1.value)">
+    <select #month (change)="onMonthSelected(month.value)">
       <option value="">Month</option>
       <option *ngFor="let m of monthData" [value]='m'>{{ m }}</option>
     </select>
   </div>
 
   <div class="dropdown">
-    <select #selectOption2 (change)="onOptionSelected2(selectOption2.value)">
+    <select #year (change)="onYearSelected(year.value)">
       <option value="">Year</option>
       <option *ngFor="let y of yearData" [value]='y'>{{ y }}</option>
     </select>

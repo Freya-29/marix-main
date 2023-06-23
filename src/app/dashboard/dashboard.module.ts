@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -12,6 +12,8 @@ import { CampaignComponent } from './helpers/campaign/campaign.component';
 import { FormModule } from '../form/form.module';
 import { ReportComponent } from './view/report/report.component';
 import { TrackCampaignComponent } from './helpers/track-campaign/track-campaign.component';
+import { ChartComponent } from './view/chart/chart.component';
+
 
 
 @NgModule({
@@ -24,12 +26,19 @@ import { TrackCampaignComponent } from './helpers/track-campaign/track-campaign.
     HomeComponent,
     CampaignComponent,
     ReportComponent,
-    TrackCampaignComponent
+    TrackCampaignComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    FormModule
-  ]
+    FormModule,
+  ],
+
+  schemas: [
+
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ],
 })
 export class DashboardModule { }

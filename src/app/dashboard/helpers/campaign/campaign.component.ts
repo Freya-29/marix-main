@@ -20,14 +20,13 @@ export class CampaignComponent implements OnInit {
   campaignArr : [] = [];
 
   ngOnInit() {
-
     this.http.get('http://10.62.0.60:3000/api/campaigns').subscribe((data : any) => {
       this.campaignArr = data.Items
       console.log(this.campaignArr);
      
    })
      
-    this.employeeService.getemployees().toPromise().then((employee:any) => {
+    this.employeeService.getemployees().then((employee:any) => {
       this.employeeList = employee;
       console.log(employee);
       // this.employeeList.forEach((element: any) => {
@@ -98,7 +97,7 @@ export class CampaignComponent implements OnInit {
     })
   
     console.log('1')
-    await this.employeeService.getemployees().toPromise().then((employee:any) => {
+    await this.employeeService.getemployees().then((employee:any) => {
       console.log('2')
       this.employeeList = employee;
       console.log(employee);

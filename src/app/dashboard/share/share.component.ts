@@ -3,7 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EmailServiceService } from 'src/app/service/email-service.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { EmployeeService } from 'src/app/service/employee.service';
+import { ViewreportService } from 'src/app/service/viewreport.service';
 
 
 @Component({
@@ -13,11 +16,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ShareComponent implements OnInit {
   employeeList1: any = [{id: '', name: '', department:''}]
+  currCampaign: any;
   constructor(private route : ActivatedRoute, 
               private http: HttpClient, 
               private emailService : EmailServiceService, 
               private router:Router,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private employeeService: EmployeeService,
+              private viewreportService: ViewreportService,
+              private location: Location) { }
 
   ngOnInit() {
     console.log(this.employeeList1);
@@ -87,16 +94,12 @@ export class ShareComponent implements OnInit {
   async generateLink() {
     try {
       this.formVisible = true;
-      this.response = await this.http.get('http://10.62.0.60:3000/api/employees').toPromise();
-      const data = this.response;
-      console.log("Heyeyyy" ,data);
-      this.employeeList1 = data;
+      this.response = await this.employeeService.getemployees();
+      this.employeeList1 = this.response;
       this.employeeList1.forEach((element: any) => {
         element['selected'] = false;
       });
-      // Use this.employeeList1 here or call a separate function passing this.employeeList1 as an argument
-      // Example:
-      // this.someFunction(this.employeeList1);
+      
       
     } catch (error) {
       console.log(error);
@@ -137,6 +140,7 @@ export class ShareComponent implements OnInit {
       'reviewers': recepients,
       'active': true
     }
+   
     const options = {
       headers: { 'Content-Type': 'application/json' },
       responseType: 'json' as const,
@@ -202,6 +206,10 @@ export class ShareComponent implements OnInit {
       })
       this.everyOneSelected = true
     }
+  }
+
+  goBack(){
+    this.location.back();
   }
   
 
