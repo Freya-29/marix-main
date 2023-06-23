@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Employee } from 'src/app/model/employee.model';
 
 @Component({
@@ -9,10 +10,11 @@ import { Employee } from 'src/app/model/employee.model';
 })
 export class TrackCampaignComponent implements OnInit {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient , private router : Router) { }
   
   campaignList : [] =  [];
   employeeList: Employee[] = [] ;
+  activeEmployeeList : Employee[] = []
 
 
 
@@ -33,18 +35,20 @@ export class TrackCampaignComponent implements OnInit {
   //   })
   // })
 
-
+    await this.http.get('http://10.62.0.60:3000/api/employees').toPromise().then((data : any) => {
+          this.employeeList = data;
+          console.log(this.employeeList);       
+    })
   
-   
+    this.employeeList.map((employee : Employee) => {
+      if(employee.isCampaignStarted){
+        this.activeEmployeeList.push(employee)
+      }
+    })    
 }   
 
-  //  view(){
-  //   this.campaignList.map(  (ele : any) => {
-  //       let id = ele.for 
-  //      this.http.get(`http://10.62.0.60:3000/api/employees/${id}`).subscribe((data : any) => {
-  //       this.employeeList.push(data.Items[0])
-  //     })
-  //   }) 
-  //   console.log("E" , this.employeeList);
-  // }
+   view(employee : Employee){
+    this.router.navigateByUrl(`dashboard/track/campaign/${employee.id}`)
+  }
 }
+
