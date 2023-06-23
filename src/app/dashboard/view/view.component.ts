@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { error } from 'highcharts';
 import { ViewreportService } from 'src/app/service/viewreport.service';
 
 @Component({
