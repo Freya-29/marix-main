@@ -10,9 +10,22 @@ export class TrackComponent implements OnInit {
 
   constructor(private http : HttpClient) { }
 
-  ngOnInit() {
-       this.http.get('http://10.62.0.60:3000/api/campaigns').subscribe(data => {
+  campaigns : [] = [];
+  reviews : [] = [];
+ async ngOnInit() {   
+      await this.http.get('http://10.62.0.60:3000/api/campaigns').toPromise().then((data : any) => {
         console.log(data);
+        this.campaigns = data.Items
+        console.log(this.campaigns);
        })
+      this.code();
+  }
+
+  code(){
+   this.campaigns.map((ele : any) => {
+   
+     
+   })
+    
   }
 }
